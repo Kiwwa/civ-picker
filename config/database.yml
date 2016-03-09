@@ -1,0 +1,17 @@
+default: &default
+  adapter: mysql
+  host: localhost
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: civ-picker
+  username: civ-picker
+  password: civ1234
+
+test:
+  <<: *default
+  database: civ-picker-test
+  username: civ-picker
+  password: civ1234
