@@ -6,7 +6,7 @@
   <%= form_tag("/games/#{@game.id}/newplayer", method: "post") do %>
     <%= label_tag(:q, "Player Name") %>
     <%= text_field_tag(:name) %>
-    <%= submit_tag("Randomize!") %>
+    <%= submit_tag("Get Assigned A Random Civ!") %>
   <% end %>
 </section>
 
@@ -20,10 +20,14 @@
   </ul>
 </section>
 
+<h2 id="admin-heading">ADMIN AREA LEAVE THIS ALONE</h2>
+<section id='admin' style="display:none">
+
 <section>
   <h2>Banned Civilizations</h2>
   <p>Ban a civilization from this game.</p>
   <p>Note: you cannot ban an already chosen civilization.</p>
+  <p>NoteNote: Rob's a shitcunt &lt;3</p>
 
   <ul>
     <% @game.banned_civilizations.each do |banned| %>
@@ -37,3 +41,9 @@
     <%= submit_tag("Ban!") %>
   <% end %>
 </section>
+
+<script>
+  $('#admin-heading').click(function(){
+    $('#admin').toggle('slow');
+  });
+</script>
