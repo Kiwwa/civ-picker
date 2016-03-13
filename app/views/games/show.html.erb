@@ -1,0 +1,39 @@
+<h1><%= @game.name %></h1>
+
+<section>
+  <p>Add yourself to the game with a random civilization.</p>
+
+  <%= form_tag("/games/#{@game.id}/newplayer", method: "post") do %>
+    <%= label_tag(:q, "Player Name") %>
+    <%= text_field_tag(:name) %>
+    <%= submit_tag("Randomize!") %>
+  <% end %>
+</section>
+
+<section>
+  <h2>Current Players</h2>
+
+  <ul>
+    <% @game.game_players.each do |player| %>
+      <li><%= player.player.name %> - <%= player.civilization.name %></li>
+    <% end %>
+  </ul>
+</section>
+
+<section>
+  <h2>Banned Civilizations</h2>
+  <p>Ban a civilization from this game.</p>
+  <p>Note: you cannot ban an already chosen civilization.</p>
+
+  <ul>
+    <% @game.banned_civilizations.each do |banned| %>
+      <li><%= banned.civilization.name %></li>
+    <% end %>
+  </ul>
+
+  <%= form_tag("/games/#{@game.id}/banciv", method: "post") do %>
+    <%= label_tag(:q, "Civ ID") %>
+    <%= collection_select(:civ, 'id', @available_civs, :id, :name) %>
+    <%= submit_tag("Ban!") %>
+  <% end %>
+</section>
