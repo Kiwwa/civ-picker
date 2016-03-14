@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
   root 'games#index'
 
-  resources :games
-  post '/games/:id/newplayer', to: 'games#associate_player_with_game'
-  post '/games/:id/banciv', to: 'games#ban_civilization_from_game'
+  resources :players, only: [:show]
+
+  resources :games do
+    resources :game_civilizations,
+      as: 'civilizations',
+      path: 'civilizations',
+      only: [:create, :update, :delete]
+    resources :game_players,
+      as: 'players',
+      path: 'players',
+      only: [:create, :delete]
+  end
 end

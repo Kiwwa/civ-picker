@@ -3,9 +3,10 @@
 <section>
   <p>Add yourself to the game with a random civilization.</p>
 
-  <%= form_tag("/games/#{@game.id}/newplayer", method: "post") do %>
+<%= form_tag("#{@game.id}/players", method: "post") do %>
     <%= label_tag(:q, "Player Name") %>
     <%= text_field_tag(:name) %>
+    <%= hidden_field_tag('game', "#{@game.id}") %>
     <%= submit_tag("Get Assigned A Random Civ!") %>
   <% end %>
 </section>
@@ -14,8 +15,8 @@
   <h2>Current Players</h2>
 
   <ul>
-    <% @game.game_players.each do |player| %>
-      <li><%= player.player.name %> - <%= player.civilization.name %></li>
+    <% @game.game_players.each do |game_player| %>
+      <li><%= game_player.player.name %> - <%= game_player.civilizations %></li>
     <% end %>
   </ul>
 </section>
@@ -30,14 +31,15 @@
   <p>NoteNote: Rob's a shitcunt &lt;3</p>
 
   <ul>
-    <% @game.banned_civilizations.each do |banned| %>
+    <% @game.banned_civs.each do |banned| %>
       <li><%= banned.civilization.name %></li>
     <% end %>
   </ul>
 
-  <%= form_tag("/games/#{@game.id}/banciv", method: "post") do %>
+  <%= form_tag("/games/#{@game.id}/civilization", method: "patch") do %>
     <%= label_tag(:q, "Civ ID") %>
     <%= collection_select(:civ, 'id', @available_civs, :id, :name) %>
+    <%= hidden_field_tag('status', 'banned') %>
     <%= submit_tag("Ban!") %>
   <% end %>
 </section>
