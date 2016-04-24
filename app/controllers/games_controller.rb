@@ -5,8 +5,8 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    @players = Player.all - @game.players
     @available_civs = Civilization.all - @game.game_civilizations.map(&:civilization)
-    binding.pry
   end
 
   def create

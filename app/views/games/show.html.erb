@@ -4,8 +4,7 @@
   <p>Add yourself to the game with a random civilization.</p>
 
 <%= form_tag("#{@game.id}/players", method: "post") do %>
-    <%= label_tag(:q, "Player Name") %>
-    <%= text_field_tag(:name) %>
+    <%= select_tag('Players', options_from_collection_for_select(@players, 'id', 'name')) %>
     <%= hidden_field_tag('game', "#{@game.id}") %>
     <%= submit_tag("Get Assigned A Random Civ!") %>
   <% end %>
