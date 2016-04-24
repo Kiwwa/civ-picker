@@ -15,8 +15,8 @@
   <h2>Current Players</h2>
 
   <ul>
-    <% @game.game_players.each do |game_player| %>
-      <li><%= game_player.player.name %> - <%= game_player.civilizations %></li>
+    <% @game.players.each do |player| %>
+      <li><%= player.name %> - <%= player.civilizations.map(&:name) %></li>
     <% end %>
   </ul>
 </section>
@@ -28,10 +28,9 @@
   <h2>Banned Civilizations</h2>
   <p>Ban a civilization from this game.</p>
   <p>Note: you cannot ban an already chosen civilization.</p>
-  <p>NoteNote: Rob's a shitcunt &lt;3</p>
 
   <ul>
-    <% @game.banned_civs.each do |banned| %>
+    <% @game.game_civilizations.banned.each do |banned| %>
       <li><%= banned.civilization.name %></li>
     <% end %>
   </ul>

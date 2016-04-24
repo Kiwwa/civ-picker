@@ -1,7 +1,5 @@
 class GameCivilization < ActiveRecord::Base
-  belongs_to :game_player
-  has_one :game, through: :game_player
+  belongs_to :game
   belongs_to :civilization
-
-  enum status: { picked: 0, banned: 1 }
+  enum status: { free: 0, chosen: 1, banned: 2 }
 end
